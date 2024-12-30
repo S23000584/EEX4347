@@ -1,0 +1,1091 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-light: #818cf8;
+    --secondary-color: #0ea5e9;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --bg-primary: #f8fafc;
+    --sidebar-bg: rgba(255, 255, 255, 0.95);
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --gradient: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --admin-role-color: #4f46e5;
+    --instructor-role-color: #0ea5e9;
+    --student-role-color: #10b981;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, transparent 80%);
+    z-index: -1;
+    animation: gradient-shift 15s ease infinite;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 280px 1fr 300px;
+    min-height: 100vh;
+    gap: 24px;
+    padding: 24px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 10px;
+}
+
+/* Updated logo styles - removed masking and effects */
+.logo {
+    width: 220px;  /* Adjust width as needed */
+    height: auto;  /* Maintain aspect ratio */
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin-top: 24px;
+}
+
+.sidebar ul li {
+    margin-bottom: 8px;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.sidebar ul li a:hover, 
+.sidebar ul li a.active {
+    background: var(--gradient);
+    color: white;
+}
+
+.sidebar ul li a i {
+    margin-right: 12px;
+    font-size: 1.2em;
+}
+
+/* Main Content Styles */
+.main-content {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.content-card {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    margin-top: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.stat-card {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Right Sidebar Styles */
+.right-sidebar {
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.notification-card,
+.event-card {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.notification-card h4,
+.event-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+/* Logout Button */
+.logout-btn {
+    display: block;
+    margin-top: auto;
+    padding: 12px;
+    background: var(--gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+@keyframes gradient-shift {
+    0% { 
+        transform: translate(0, 0); 
+    }
+    50% { 
+        transform: translate(-30px, -30px); 
+    }
+    100% { 
+        transform: translate(0, 0); 
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .dashboard-container {
+        grid-template-columns: 250px 1fr;
+    }
+    .right-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        display: none;
+    }
+}
+
+
+/* Add these new styles to your existing CSS file */
+
+/* Enhanced Stat Cards */
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.stat-info h3 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-primary);
+}
+
+.card-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.card-header i {
+    color: var(--primary-color);
+}
+
+/* Activity List Styles */
+.activity-list {
+    padding: 16px;
+}
+
+.activity-item {
+    display: flex;
+    gap: 16px;
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-time {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    min-width: 120px;
+}
+
+.activity-info h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.activity-info p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Progress Styles */
+.progress-grid {
+    padding: 16px;
+}
+
+.progress-item {
+    margin-bottom: 16px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.progress-bar {
+    height: 8px;
+    background: var(--bg-primary);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: var(--gradient);
+    border-radius: 4px;
+    text-align: right;
+    font-size: 0.75rem;
+    color: white;
+    padding: 0 6px;
+}
+
+/* Social Feed Styles */
+.social-feed {
+    padding: 16px;
+}
+
+.feed-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.feed-item:last-child {
+    border-bottom: none;
+}
+
+.feed-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.feed-content h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.feed-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.feed-time {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1400px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Study Groups Section */
+#student-study-groups .content-card {
+    margin-top: 20px;
+}
+
+#student-study-groups .content-card h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.group-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.group-item p {
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.join-group-btn,
+.view-group-btn {
+    background: var(--secondary-color);
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.join-group-btn:hover,
+.view-group-btn:hover {
+    background: var(--primary-color);
+}
+
+.add-new-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px; /* Small space between the text and button */
+}
+
+.add-new-group p {
+    font-size: 1rem; /* Adjusted for better readability */
+    color: var(--text-primary);
+}
+
+.add-group-btn {
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    background: var(--primary-light);
+    padding: 12px; /* Adjust padding to make the circle */
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; /* Set fixed width for circular shape */
+    height: 50px; /* Set fixed height for circular shape */
+    text-align: center;
+}
+
+.add-group-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+.workshop-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.workshop-table th,
+.workshop-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.workshop-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.workshop-table td a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.workshop-table td a:hover {
+    text-decoration: underline;
+}
+
+/* Adjust the width of the 2nd column */
+.workshop-table td:nth-child(2),
+.workshop-table th:nth-child(2) {
+    width: 15%; /* Increase by 5% from the default */
+}
+
+
+#student-social-media .social-media-list h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin: 24px 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#student-social-media .social-media-list h3 i {
+    color: var(--primary-color);
+}
+
+#student-social-media .social-media-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+#student-social-media .social-media-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+#student-social-media .social-media-list li:hover {
+    transform: translateY(-2px);
+}
+
+#student-social-media .social-media-list li strong {
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+#student-social-media .join-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gradient);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.2s ease;
+}
+
+#student-social-media .join-button:hover {
+    opacity: 0.9;
+}
+
+#student-social-media .join-button i {
+    font-size: 0.8rem;
+}
+
+
+/* Add New Group Section Styles */
+#student-social-media .add-new-group {
+    margin-top: 32px;
+    padding: 24px;
+    background: var(--card-bg); /* Use card background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle depth */
+    border: 1px solid #e5e7eb; /* Light border for structure */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    gap: 24px; /* Space between topic title and other elements */
+}
+
+/* Move topic to top left */
+#student-social-media .add-new-group h3 {
+    font-size: 1.52rem; /* Reduced by 5% */
+    color: var(--text-primary); /* Use primary text color */
+    font-weight: 600; /* Bold for emphasis */
+    margin-bottom: 0; /* Remove default margin */
+    margin-left: 0; /* Ensure it aligns to the left */
+    padding-bottom: 8px; /* Small padding for spacing */
+    text-align: left; /* Align to the top left */
+}
+
+/* Make form fields and submit button horizontal */
+#student-social-media .add-new-group .form-group {
+    display: flex;
+    flex-direction: row; /* Align fields horizontally */
+    gap: 16px; /* Space between fields */
+    align-items: center; /* Align items vertically in the center */
+    margin-bottom: 16px;
+}
+
+#student-social-media .add-new-group .form-group label {
+    display: block;
+    margin-bottom: 0; /* Remove margin bottom */
+    font-size: 1rem; /* Modern, slightly larger text */
+    color: var(--text-secondary); /* Use secondary text color */
+    font-weight: 500; /* Medium weight for clarity */
+    width: 120px; /* Fixed width for label */
+}
+
+#student-social-media .add-new-group .form-group input,
+#student-social-media .add-new-group .form-group select {
+    width: auto; /* Auto width for form fields */
+    padding: 12px; /* Extra padding for comfort */
+    border: 1px solid #e2e8f0; /* Light gray border for inputs */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 1rem; /* Larger, cleaner text */
+    background: var(--bg-primary); /* Match background to overall theme */
+    color: var(--text-primary); /* Use primary text color */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    flex-grow: 1; /* Allow inputs to grow and fill space */
+}
+
+#student-social-media .add-new-group .form-group input:focus,
+#student-social-media .add-new-group .form-group select:focus {
+    border-color: var(--primary-color); /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(79, 70, 229, 0.3); /* Glow effect on focus */
+    outline: none; /* Remove default outline */
+}
+
+#student-social-media .add-new-group .add-group-button {
+    display: inline-flex; /* Aligns icon and text */
+    align-items: center; /* Centers content vertically */
+    gap: 8px; /* Space between icon and text */
+    padding: 12px 24px; /* More comfortable padding */
+    background: var(--gradient); /* Gradient for modern design */
+    color: white;
+    border: none;
+    border-radius: 8px; /* Softer corners */
+    cursor: pointer;
+    font-size: 1rem; /* Cleaner text size */
+    font-weight: 500;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#student-social-media .add-new-group .add-group-button:hover {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color)); /* Hover gradient */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* More pronounced hover shadow */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+
+/* Study Groups Section Styles */
+#student-study-groups {
+    padding: 20px;
+    background-color: var(--bg-primary);
+}
+
+#student-study-groups h2 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+#student-study-groups h3 {
+    color: var(--text-primary);
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+.available-groups,
+.joined-groups,
+.add-group {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.group-item {
+    border-bottom: 1px solid var(--text-secondary);
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group-item:last-child {
+    border-bottom: none;
+}
+
+.group-item span {
+    font-weight: bold;
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+.group-item p {
+    color: var(--text-secondary);
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.group-item button {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.group-item button:hover {
+    opacity: 0.9;
+}
+
+/* Add Group Form Styles */
+.add-group form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-group form div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.add-group label {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.add-group input,
+.add-group textarea {
+    padding: 8px 12px;
+    border: 1px solid var(--text-secondary);
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.add-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.add-group button {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    align-self: flex-start;
+}
+
+.add-group button:hover {
+    opacity: 0.9;
+}
+
+
+#admin-users {
+    width: 85%; /* Increase the container width slightly */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#add-user-section {
+    margin-top: 20px; /* Add space between main heading and form topic */
+}
+
+#add-user-section h3 {
+    margin-top: 20px; /* Add space between the main heading and form section */
+}
+
+#add-user-section form {
+    display: grid;
+    gap: 15px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.form-group input,
+.form-group select {
+    width: 60%; /* Further decrease the width of input and select fields */
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.form-actions button {
+    background: var(--gradient);
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-actions button:hover {
+    background: var(--primary-light);
+}
+
+#user-list-section {
+    margin-top: 30px;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: var(--card-bg);
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-info p {
+    margin: 2px 0;
+}
+
+.user-role {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: white;
+}
+
+.user-role.admin {
+    background-color: var(--admin-role-color);
+}
+
+.user-role.instructor {
+    background-color: var(--instructor-role-color);
+}
+
+.user-role.student {
+    background-color: var(--student-role-color);
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.user-actions button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 6px 12px;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.user-actions button:hover {
+    background-color: var(--primary-color);
+}
+
+.right-sidebar {
+    padding: 20px;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--primary-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+.right-sidebar h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.announcement-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.announcement-item {
+    background: var(--card-bg);
+    border: 1px solid var(--primary-light);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.announcement-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.announcement-item h4 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    margin: 0 0 10px;
+    font-weight: 500;
+}
+
+.announcement-item p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin: 0 0 10px;
+}
+
+.announcement-item small {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    display: block;
+    text-align: right;
+}
+
+
+#admin-announcements {
+    padding: 20px;
+    background-color: var(--sidebar-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#admin-announcements h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content-card {
+    background: var(--card-bg);
+    padding: 15px;
+    border: 1px solid var(--primary-light);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.content-card p {
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.post-announcement, .edit-announcements {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.post-announcement h3, .edit-announcements h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    color: var(--text-primary);
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--primary-light);
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-light);
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-light);
+    transform: scale(1.05);
+}
+
+.announcement-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.announcement-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--card-bg);
+    border: 1px solid var(--primary-light);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.announcement-item h4 {
+    margin: 0 0 10px;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+}
+
+.announcement-item p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0 0 10px;
+}
+
+.announcement-item small {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: block;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.announcement-item form input[type="text"],
+.announcement-item form textarea {
+    margin-bottom: 10px;
+}

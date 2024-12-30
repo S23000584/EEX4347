@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Group Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/View-Group.css') }}">
+</head>
+<body>
+    <div class="group-details">
+        <h1>{{ group.group_name }}</h1>
+        <p>{{ group.description }}</p>
+        
+        <div class="created-info">
+            <p>Created on: {{ group.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        </div>
+        
+        <div class="members-list">
+            <h2>Group Members</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Joined Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                    <tr>
+                        <td>{{ member.first_name }} {{ member.last_name }}</td>
+                        <td>{{ member.username }}</td>
+                        <td>{{ member.joined_at.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="navigation">
+            <a href="{{ url_for('dashboard') }}">
+                <button type="button">Back to Dashboard</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
